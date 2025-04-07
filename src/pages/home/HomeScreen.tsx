@@ -24,7 +24,7 @@ const HomeScreen = () => {
 
   const handleLogout = () => {
     // Logout logic here
-    navigation.navigate('Login');
+    navigation.navigate('Auth');
   };
 
   return (
