@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity, Dimensions, ScrollView } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, Dimensions } from 'react-native'
 import React, { useEffect } from 'react'
 import Animated, {
   useAnimatedStyle,
@@ -8,7 +8,7 @@ import Animated, {
   runOnJS
 } from 'react-native-reanimated';
 import { useBottomTabState } from '@/stores/state/BottomTabState';
-import { Gesture, GestureDetector } from 'react-native-gesture-handler';
+import { Gesture, GestureDetector, ScrollView } from 'react-native-gesture-handler';
 
 const { height } = Dimensions.get('window');
 
@@ -78,7 +78,9 @@ const PopTab1 = () => {
         <ScrollView
           style={styles.scrollContainer}
           contentContainerStyle={styles.scrollContent}
-          showsVerticalScrollIndicator={true}
+          bounces={false}
+          overScrollMode="never"
+          nestedScrollEnabled={true}
         >
           <Text style={styles.contentText}>
             This is a popup tab that slides up from the bottom of the screen.
@@ -100,7 +102,7 @@ const PopTab1 = () => {
         </ScrollView>
       </Animated.View>
     </GestureDetector>
-  )
+  );
 }
 
 export default PopTab1
