@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, TouchableOpacity, View, Dimensions, Text } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { Feather } from '@expo/vector-icons';
 import Animated, {
   useAnimatedStyle,
@@ -9,21 +9,34 @@ import Animated, {
   useSharedValue,
   withTiming
 } from 'react-native-reanimated';
+import { useBottomTabState } from '@/stores/state/BottomTabState';
 
-const { width } = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 const TAB_WIDTH = width / 3;
 
 const BottomTabNav = () => {
   const navigation = useNavigation();
   const [activeTab, setActiveTab] = useState(0);
 
+  // Get bottom tab state from Zustand store
+  const { bottomTabActiveState, SET_BOTTOM_TAB_POSITION } = useBottomTabState();
+
   // Shared values for animations
   const indicatorPosition = useSharedValue(0);
+  const tabBarPosition = useSharedValue(bottomTabActiveState ? 0 : height);
   const scaleValues = [
     useSharedValue(1),
     useSharedValue(1),
     useSharedValue(1)
   ];
+
+  // Update tab bar position when bottomTabActiveState changes
+  useEffect(() => {
+    tabBarPosition.value = withSpring(
+      bottomTabActiveState ? 0 : height,
+      { damping: 20, stiffness: 90 }
+    );
+  }, [bottomTabActiveState]);
 
   const tabs = [
     { name: 'Home', icon: 'home' as const, component: 'Home', iconSet: Feather },
@@ -54,6 +67,13 @@ const BottomTabNav = () => {
     };
   });
 
+  // Animated style for the tab bar position
+  const tabBarStyle = useAnimatedStyle(() => {
+    return {
+      transform: [{ translateY: tabBarPosition.value }]
+    };
+  });
+
   // Create animated styles for each tab
   const getAnimatedStyle = (index: number) => {
     return useAnimatedStyle(() => {
@@ -64,7 +84,7 @@ const BottomTabNav = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <Animated.View style={[styles.container, tabBarStyle]}>
       <Animated.View style={[styles.indicator, indicatorStyle]} />
       {tabs.map((tab, index) => {
         const Icon = tab.iconSet;
@@ -96,7 +116,7 @@ const BottomTabNav = () => {
           </TouchableOpacity>
         );
       })}
-    </View>
+    </Animated.View>
   );
 };
 
@@ -121,6 +141,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
+    zIndex: 1000,
   },
   tab: {
     flex: 1,

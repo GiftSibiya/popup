@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import HomeScreen from './src/pages/home/HomeScreen';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
@@ -8,11 +8,18 @@ import LoginScreen from '@/pages/auth/LoginScreen';
 import ShopScreen from '@/pages/home/ShopScreen';
 import AccountScreen from '@/pages/home/AccountScreen';
 import BottomTabNav from '@/components/popups/BottomTabNav';
+import { useBottomTabState } from '@/stores/state/BottomTabState';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
 const AuthStack = () => {
+  const { setBottomTabInactive } = useBottomTabState();
+
+  useEffect(() => {
+    setBottomTabInactive();
+  }, []);
+
   return (
     <Stack.Navigator initialRouteName='Login'
       screenOptions={{ headerShown: false }}>
@@ -22,6 +29,12 @@ const AuthStack = () => {
 };
 
 const MainTabs = () => {
+  const { setBottomTabActive } = useBottomTabState();
+
+  useEffect(() => {
+    setBottomTabActive();
+  }, []);
+
   return (
     <Tab.Navigator screenOptions={{ headerShown: false }} tabBar={() => { return null }}>
       <Tab.Screen name="Home" component={HomeScreen} />
@@ -35,13 +48,11 @@ export default function App() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <NavigationContainer>
-        <Tab.Navigator
-          tabBar={() => <BottomTabNav />}
-          initialRouteName='Auth'
-          screenOptions={{ headerShown: false }}>
-          <Tab.Screen name="Auth" component={AuthStack} />
-          <Tab.Screen name="Main" component={MainTabs} />
-        </Tab.Navigator>
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="Auth" component={AuthStack} />
+          <Stack.Screen name="Main" component={MainTabs} />
+        </Stack.Navigator>
+        <BottomTabNav />
       </NavigationContainer>
     </GestureHandlerRootView>
   );

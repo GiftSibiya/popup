@@ -1,13 +1,18 @@
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useNavigation } from '@react-navigation/native'
-
+import { useBottomTabState } from '@/stores/state/BottomTabState';
 const LoginScreen = () => {
   const navigation = useNavigation();
+  const { setBottomTabInactive } = useBottomTabState();
 
   const handleLogin = () => {
     navigation.navigate('Main');
   };
+
+  useEffect(() => {
+    setBottomTabInactive();
+  }, []);
 
   return (
     <View style={styles.container}>
