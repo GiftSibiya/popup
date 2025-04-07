@@ -1,19 +1,30 @@
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React from 'react';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { useBottomTabState } from '@/stores/state/BottomTabState';
+import { usePopupState } from '@/stores/state/PopupState';
+import { useToastState } from '@/stores/state/ToastState';
 
 const HomeScreen = () => {
   const navigation = useNavigation();
-  const { setBottomTabInactive, setPopTab1Active } = useBottomTabState();
-
-  const handleLogout = () => {
-    setBottomTabInactive();
-    navigation.popToTop();
-  };
+  const { setPopTab1Active } = usePopupState();
+  const { showToast } = useToastState();
 
   const handleOpenPopTab1 = () => {
     setPopTab1Active();
+  };
+
+  const handleShowToast = () => {
+    console.log('showToast has been clicked');
+    showToast({
+      message: 'This is a sample toast message!',
+      type: 'success',
+      duration: 3000
+    });
+  };
+
+  const handleLogout = () => {
+    // Logout logic here
+    navigation.navigate('Login');
   };
 
   return (
@@ -21,23 +32,28 @@ const HomeScreen = () => {
       <Text style={styles.title}>Home Screen</Text>
 
       <TouchableOpacity
-        style={styles.logoutButton}
-        onPress={handleLogout}
+        style={styles.button}
+        onPress={handleOpenPopTab1}
       >
-        <Text style={styles.logoutButtonText}>Logout</Text>
+        <Text style={styles.buttonText}>Open PopTab1</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
-        style={styles.popTabButton}
-        onPress={handleOpenPopTab1}
+        style={[styles.button, styles.toastButton]}
+        onPress={handleShowToast}
       >
-        <Text style={styles.logoutButtonText}>Open PopTab1</Text>
+        <Text style={styles.buttonText}>Show Toast</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={[styles.button, styles.logoutButton]}
+        onPress={handleLogout}
+      >
+        <Text style={styles.buttonText}>Logout</Text>
       </TouchableOpacity>
     </View>
-  )
-}
-
-export default HomeScreen
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -51,23 +67,26 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 30,
   },
-  logoutButton: {
-    backgroundColor: '#FF3B30',
-    paddingVertical: 12,
-    paddingHorizontal: 30,
-    borderRadius: 8,
-    marginTop: 20,
-  },
-  popTabButton: {
+  button: {
     backgroundColor: '#007AFF',
     paddingVertical: 12,
-    paddingHorizontal: 30,
+    paddingHorizontal: 20,
     borderRadius: 8,
-    marginTop: 20,
+    marginVertical: 10,
+    width: '80%',
+    alignItems: 'center',
   },
-  logoutButtonText: {
+  toastButton: {
+    backgroundColor: '#34C759',
+  },
+  logoutButton: {
+    backgroundColor: '#FF3B30',
+  },
+  buttonText: {
     color: 'white',
     fontSize: 16,
     fontWeight: '600',
   },
-})
+});
+
+export default HomeScreen;

@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import React, { useEffect } from 'react'
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native';
 import { useBottomTabState } from '@/stores/state/BottomTabState';
 const LoginScreen = () => {
   const navigation = useNavigation();

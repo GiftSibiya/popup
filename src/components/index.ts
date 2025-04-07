@@ -9,3 +9,4 @@ export { default as PopUpWrapper } from './elements/PopUpWrapper';
 
 // ---------- POPUPS ---------- // 
 export { default as PopTab1 } from './popups/PopTab1';
+export { default as ToastPopUp } from './popups/ToastPopUp';

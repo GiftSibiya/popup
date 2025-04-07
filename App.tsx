@@ -9,6 +9,7 @@ import ShopScreen from '@/pages/home/ShopScreen';
 import AccountScreen from '@/pages/home/AccountScreen';
 import BottomTabNav from '@/components/popups/BottomTabNav';
 import PopTab1 from '@/components/popups/PopTab1';
+import ToastPopUp from '@/components/popups/ToastPopUp';
 import { useBottomTabState } from '@/stores/state/BottomTabState';
 
 const Tab = createBottomTabNavigator();
@@ -55,6 +56,7 @@ export default function App() {
         </Stack.Navigator>
         <BottomTabNav />
         <PopTab1 />
+        <ToastPopUp />
       </NavigationContainer>
     </GestureHandlerRootView>
   );

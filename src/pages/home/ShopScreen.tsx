@@ -1,9 +1,9 @@
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native'
 import React from 'react'
-import { useBottomTabState } from '@/stores/state/BottomTabState';
+import { usePopupState } from '@/stores/state/PopupState';
 
 const ShopScreen = () => {
-  const { setPopTab1Active } = useBottomTabState();
+  const { setPopTab1Active } = usePopupState();
 
   // Sample product data
   const products = [

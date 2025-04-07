@@ -7,13 +7,13 @@ import Animated, {
   withTiming,
   runOnJS
 } from 'react-native-reanimated';
-import { useBottomTabState } from '@/stores/state/BottomTabState';
+import { usePopupState } from '@/stores/state/PopupState';
 import { Gesture, GestureDetector, ScrollView } from 'react-native-gesture-handler';
 
 const { height } = Dimensions.get('window');
 
 const PopTab1 = () => {
-  const { popTab1Active, setPopTab1Inactive } = useBottomTabState();
+  const { popTab1Active, setPopTab1Inactive } = usePopupState();
 
   // Shared value for the popup position
   const popupPosition = useSharedValue(popTab1Active ? 0 : height);
