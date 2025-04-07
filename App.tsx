@@ -1,12 +1,13 @@
+import React from 'react';
 import HomeScreen from './src/pages/home/HomeScreen';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import LoginScreen from '@/pages/auth/LoginScreen';
-import { PopUpWrapper } from '@/components';
 import ShopScreen from '@/pages/home/ShopScreen';
 import AccountScreen from '@/pages/home/AccountScreen';
+import BottomTabNav from '@/components/popups/BottomTabNav';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -35,7 +36,7 @@ export default function App() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <NavigationContainer>
         <Tab.Navigator
-          tabBar={() => <PopUpWrapper />}
+          tabBar={() => <BottomTabNav />}
           initialRouteName='Auth'
           screenOptions={{ headerShown: false }}>
           <Tab.Screen name="Auth" component={AuthStack} />
