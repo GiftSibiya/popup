@@ -3,6 +3,8 @@
   "compilerOptions": {
     "strict": true,
     "baseUrl": "./",
+    "moduleResolution": "node16",
+    "module": "Node16",
     "paths": {
       "@/*": [
         "src/*"
