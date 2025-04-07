@@ -5,10 +5,13 @@ import { persist } from 'zustand/middleware';
 interface BottomTabStateProps {
   bottomTabActiveState: boolean;
   BOTTOM_TAB_X_POSITION: number;
+  popTab1Active: boolean;
   toggleBottomTab: () => void;
   setBottomTabActive: () => void;
   setBottomTabInactive: () => void;
   SET_BOTTOM_TAB_POSITION: (position: number) => void;
+  setPopTab1Active: () => void;
+  setPopTab1Inactive: () => void;
 }
 
 export const useBottomTabState = create<BottomTabStateProps>()(
@@ -16,6 +19,7 @@ export const useBottomTabState = create<BottomTabStateProps>()(
     (set) => ({
       bottomTabActiveState: true,
       BOTTOM_TAB_X_POSITION: 0,
+      popTab1Active: false,
 
       SET_BOTTOM_TAB_POSITION: (position) => set({ BOTTOM_TAB_X_POSITION: position }),
       toggleBottomTab: () => set((state) => ({
@@ -23,6 +27,8 @@ export const useBottomTabState = create<BottomTabStateProps>()(
       })),
       setBottomTabActive: () => set({ bottomTabActiveState: true }),
       setBottomTabInactive: () => set({ bottomTabActiveState: false }),
+      setPopTab1Active: () => set({ popTab1Active: true }),
+      setPopTab1Inactive: () => set({ popTab1Active: false }),
     }),
     {
       name: 'bottom-state-store',

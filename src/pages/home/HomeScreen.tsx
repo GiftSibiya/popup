@@ -5,11 +5,15 @@ import { useBottomTabState } from '@/stores/state/BottomTabState';
 
 const HomeScreen = () => {
   const navigation = useNavigation();
-  const { setBottomTabInactive } = useBottomTabState();
+  const { setBottomTabInactive, setPopTab1Active } = useBottomTabState();
 
   const handleLogout = () => {
     setBottomTabInactive();
     navigation.popToTop();
+  };
+
+  const handleOpenPopTab1 = () => {
+    setPopTab1Active();
   };
 
   return (
@@ -24,8 +28,8 @@ const HomeScreen = () => {
       </TouchableOpacity>
 
       <TouchableOpacity
-        style={{ backgroundColor: 'blue', marginVertical: 10, padding: 10, borderRadius: 5 }}
-        onPress={handleLogout}
+        style={styles.popTabButton}
+        onPress={handleOpenPopTab1}
       >
         <Text style={styles.logoutButtonText}>Open PopTab1</Text>
       </TouchableOpacity>
@@ -49,6 +53,13 @@ const styles = StyleSheet.create({
   },
   logoutButton: {
     backgroundColor: '#FF3B30',
+    paddingVertical: 12,
+    paddingHorizontal: 30,
+    borderRadius: 8,
+    marginTop: 20,
+  },
+  popTabButton: {
+    backgroundColor: '#007AFF',
     paddingVertical: 12,
     paddingHorizontal: 30,
     borderRadius: 8,
