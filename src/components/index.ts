@@ -7,3 +7,5 @@ export { default as PopUpWrapper } from './elements/PopUpWrapper';
 
 // ---------- PAGES ---------- // 
 
+// ---------- POPUPS ---------- // 
+export { default as PopTab1 } from './popups/PopTab1';

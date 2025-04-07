@@ -8,11 +8,8 @@ const HomeScreen = () => {
   const { setBottomTabInactive } = useBottomTabState();
 
   const handleLogout = () => {
-    // Set bottom tab to inactive (will slide down)
     setBottomTabInactive();
-
-    // Navigate back to Auth screen
-    navigation.navigate('Auth');
+    navigation.popToTop();
   };
 
   return (
@@ -24,6 +21,13 @@ const HomeScreen = () => {
         onPress={handleLogout}
       >
         <Text style={styles.logoutButtonText}>Logout</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={{ backgroundColor: 'blue', marginVertical: 10, padding: 10, borderRadius: 5 }}
+        onPress={handleLogout}
+      >
+        <Text style={styles.logoutButtonText}>Open PopTab1</Text>
       </TouchableOpacity>
     </View>
   )
